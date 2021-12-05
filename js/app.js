@@ -14,9 +14,6 @@ function getInfo(url = "https://api.openweathermap.org/data/2.5/forecast?") {
    sendRequest(url, showWeather);
 };
 
-
-
-
 function showWeather(obj) {
    document.querySelector(".name__city").innerHTML = obj.city.name;
    document.querySelector(".date").innerHTML = obj.list[0].dt_txt;
@@ -30,6 +27,7 @@ function showWeather(obj) {
    document.querySelector(".pressure__now").innerHTML = `Pressure: ${obj.list[0].main.pressure} mb`;
 
    const weatherFuture = document.querySelector(".weather__future");
+   weatherFuture.innerHTML = "";
    for (let i = 0; i < 5; i++) {
       const blockFuture = buildBlocksFutureWeather(obj, i);
       blockFuture.hidden = false;
@@ -37,12 +35,6 @@ function showWeather(obj) {
       weatherFuture.append(blockFuture);
    };
 };
-
-function testRequest(obj) {
-   console.log(obj);
-}
-getInfo();
-// setInterval(getInfo, 10000);
 
 function buildBlocksFutureWeather(obj, i) {
    const blockFuture = document.querySelector(".block__future").cloneNode(true);
@@ -89,3 +81,6 @@ function buildBlocksFutureWeather(obj, i) {
 
    return blockFuture;
 };
+
+getInfo();
+setInterval(getInfo, 60000);
