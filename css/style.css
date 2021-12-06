@@ -10,9 +10,18 @@
   margin: 50px auto;
 }
 .weather__now {
+  margin-top: 20px;
   padding: 30px 40px;
   box-shadow: 0 0 12px rgba(0, 0, 0, 0.38);
   border-radius: 10px;
+}
+.block__input {
+  text-align: right;
+}
+.block__error {
+  height: 50px;
+  font-size: 24px;
+  font-weight: 700;
 }
 .date__city {
   display: flex;

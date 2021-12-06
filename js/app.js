@@ -1,12 +1,20 @@
 function sendRequest(url, func) {
    fetch(url)
       .then(response => response.json())
-      .then(body => func(body));
+      .then(body => {
+         if (body.message) {
+            document.querySelector(".error").hidden = false;
+         }
+         else {
+            document.querySelector(".error").hidden = true;
+            func(body);
+         };
+      });
 }
 
-function getInfo(url = "https://api.openweathermap.org/data/2.5/forecast?") {
+function getInfo(q = "Minsk", url = "https://api.openweathermap.org/data/2.5/forecast?") {
    const queryParams = {
-      q: "Minsk",
+      q: q,
       appid: "70a21360959a07d4ec257e63e598fa6b",
       units: "metric",
    };
@@ -84,3 +92,13 @@ function buildBlocksFutureWeather(obj, i) {
 
 getInfo();
 setInterval(getInfo, 60000);
+
+document.querySelector(".btn__search").addEventListener("click", searchCity);
+document.querySelector(".input__city").addEventListener("keyup", (e) => {
+   if (e.key === "Enter") searchCity();
+});
+
+function searchCity() {
+   getInfo(document.querySelector(".input__city").value);
+   document.querySelector(".input__city").value = "";
+}
